@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <!-- javascript links -->
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+  <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js'></script>
+
+  <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css' type='text/css' />
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+  <link href="css/styles.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- <nav id="menu"></nav> -->
+
+  <div id='map'></div>
+  <div class='map-overlay' id='legend'><p>GHG Intensity</p></div>
+  <div class="map-overlay2 top">
+    <div class="map-overlay-inner">
+  <fieldset id="menu">
+  <label>Select layer</label>
+  <select id="layerSelect" name="layer">
+    <option value="ghgintensity">GHG Intensity</option>
+    <option value="siteeui">Site EUI</option>
+  </select>
+  </fieldset>
+  </div>
+  </div>
+</body>
+<script type="text/javascript" src="js/script.js"></script>
+
+</html>
