@@ -6,6 +6,7 @@
   <!-- javascript links -->
   <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
   <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js'></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
 
   <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css' type='text/css' />
   <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
@@ -15,10 +16,7 @@
 
 <body>
 
-  <!-- <nav id="menu"></nav> -->
-
   <div id='map'></div>
-  <div class='map-overlay' id='legend'><p>GHG Intensity</p></div>
   <div class="map-overlay2 top">
     <div class="map-overlay-inner">
   <fieldset id="menu">
@@ -30,7 +28,52 @@
   </fieldset>
   </div>
   </div>
+<!-- legend -->
+  <div class='map-overlay' id='legend'></div>
+<!-- info panel -->
+  <div id="perbuildinginfo" class="perbuildinginfo">
+    <span class="close">x</span>
+    <div class="reportsContainer">
+    <div class="info">
+      <div class="address">
+        <span class="label"></span>
+        <span class="value"></span>
+      </div>
+      <div class="type">
+        <span class="value"></span>
+      </div>
+      <break></break>
+      <break></break>
+      <div class="ghgintens">
+        <span class="value"></span>
+        <span class="label">GHG Intensity (kgCO2e/ft²)</span>
+      </div>
+      <div class="siteeui">
+        <span class="label">Site EUI: </span>
+        <span class="value"></span>
+      </div>
+      <div class="buildingID">
+        <span class="label">Building ID: </span>
+        <span class="value"></span>
+      </div>
+      <div class="area">
+        <span class="label">Gross Floor Area: </span>
+        <span class="value"></span>
+      </div>
+      <div class="energystar">
+        <span class="label">ENERGYSTAR score: </span>
+        <span class="value"></span>
+      </div>
+      <div class="yearReno">
+        <span class="label">Year Last Renovated: </span>
+        <span class="value"></span>
+      </div>
+      <div id="ghgintensityGraph">
+      </div>
+    </div>
+  </div>
+  </div>
 </body>
-<script type="text/javascript" src="js/script.js"></script>
+<script type="module" src="js/script.js"></script>
 
 </html>
