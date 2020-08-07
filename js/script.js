@@ -165,10 +165,9 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
 
 // name the data
   var allData = d3.json(allDataUrl);
-  var minVal = Math.min.apply(null,allData);
 
   svg.selectAll('rect')
-    .data(allData)
+    .data(allData.features)
     .enter()
     .append('rect')
     .attr();
