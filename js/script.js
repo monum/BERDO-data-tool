@@ -25,6 +25,86 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
  // Add the geocoder to the map
  map.addControl(geocoder);
 
+    var histograms = {};
+ //histogram margin
+    var margin = {top: 10, right: 10, bottom: 30, left: 40},
+       width = 480 - margin.left - margin.right,
+       height = 500 - margin.top - margin.bottom;
+
+ // append the svg object to the body of the page
+     var svg = d3.select('.ghgintensityGraph')
+       .append('svg')
+         .attr('width', width + margin.left + margin.right)
+         .attr('height', height + margin.top + margin.bottom)
+         .append('g')
+         .attr('transform',
+               'translate(' + margin.left + ', ' + margin.top + ')');
+
+ // name the data
+   d3.json(allDataUrl).then(function(allData) {
+
+     var dataByType = allData.features.reduce(function(memo, element, index, array){
+       if (!element.properties.GHGIN_NUM){
+         return memo;
+       }
+       if (memo[element.properties.Property_T]){
+         memo[element.properties.Property_T]=[ ...memo[element.properties.Property_T], element];
+       }
+       else {
+         memo[element.properties.Property_T]=[ element];
+       }
+       return memo;
+     }, {});
+
+
+     for (var propertyType in dataByType) {
+       var blankGraphSVG = document.querySelector('.ghgintensityGraph');
+       var populatedGraph = blankGraphSVG.cloneNode(true);
+
+       var svg = d3.select(populatedGraph);
+       var ghgValues = dataByType[propertyType].map(function(feature) {
+         return feature.GHGIN_NUM;
+       });
+       var min = d3.min(ghgValues);
+       var max = d3.max(ghgValues);
+       var x = d3.scale.linear()
+       .domain([min, max])
+       .range([0, width]);
+       var data = d3.layout.histogram()
+       .bins(x.ticks(10))
+       (ghgValues);
+       var yMax = d3.max(data, function(d){return d.length});
+       var yMin = d3.min(data, function(d){return d.length});
+       var y = d3.scale.linear()
+        .domain([0, yMax])
+        .range([height,0]);
+        var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+        var bar = svg.selectAll(".bar")
+          .data(data)
+          .enter().append('g')
+          .attr('class', 'bar')
+          .attr('transform', function(d){
+            return "translate(" + x(d.x) + "," + y(d.y) + ")";
+          });
+
+          bar.append('rect')
+          .attr("x", 1)
+          .attr("width", (x(data[0].dx) - x(0)) - 1)
+          .attr("height", function(d) { return height - y(d.y); })
+          .attr('fill', "blue");
+
+          svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+
+       histograms[propertyType] = svg;
+     }
+   });
+
 // visualize map
  map.on('load', function(){
 
@@ -149,41 +229,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
         reportsContainer.appendChild(report);
       })
 
-//histogram margin
-    var margin = {top: 10, right: 10, bottom: 30, left: 40},
-      width = 480 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
 
-// append the svg object to the body of the page
-    var svg = d3.select('#ghgintensityGraph')
-      .append('svg')
-        .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-        .attr('transform',
-              'translate(' + margin.left + ', ' + margin.top + ')');
-
-// name the data
-  d3.json(allDataUrl).then(function(allData) {
-
-  var dataByType = allData.features.reduce(function(memo, element, index, array){
-      if (!element.properties.GHGIN_NUM){
-        return memo;
-      }
-      if (memo[element.properties.Property_T]){
-        memo[element.properties.Property_T]=[ ...memo[element.properties.Property_T], element];
-      }
-      else {
-        memo[element.properties.Property_T]=[ element];
-      }
-      return memo;
-    }, {});
-
-    svg.selectAll('rect')
-      .data(allData.features)
-      .enter()
-      .append('rect');
-  });
 
 
 
