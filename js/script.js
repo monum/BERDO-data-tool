@@ -171,7 +171,7 @@ var allDataUrl = 'https://github.com/pounlaura/BERDO-data-tool/blob/master/BERDO
     .data(allData)
     .enter()
     .append('rect')
-    .attr()
+    .attr();
 
 
 // x axis: scale and draw:
