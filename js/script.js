@@ -166,7 +166,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
 // name the data
   d3.json(allDataUrl).then(function(allData) {
 
-    allData.reduce(function(memo, element, index, array){
+    allData.features.reduce(function(memo, element, index, array){
       if (!element.GHGIN_NUM){
         return memo;
       }
