@@ -67,7 +67,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
        });
        var min = d3.min(ghgValues);
        var max = d3.max(ghgValues);
-       var x = d3.scale.linear()
+       var x = d3.scaleLinear()
        .domain([min, max])
        .range([0, width]);
        var data = d3.layout.histogram()
@@ -75,7 +75,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
        (ghgValues);
        var yMax = d3.max(data, function(d){return d.length});
        var yMin = d3.min(data, function(d){return d.length});
-       var y = d3.scale.linear()
+       var y = d3.scaleLinear()
         .domain([0, yMax])
         .range([height,0]);
         var xAxis = d3.svg.axis()
