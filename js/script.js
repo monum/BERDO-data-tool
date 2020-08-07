@@ -1,6 +1,6 @@
 
 // import original geojson dataset
-var allDataUrl = 'https://github.com/pounlaura/BERDO-data-tool/blob/master/BERDO_2019_All.geojson';
+var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geojson';
 // set up map
   mapboxgl.accessToken = 'pk.eyJ1IjoiYm9zdG9uYXBjYyIsImEiOiJja2MyYXplbDMwcG0xMnhqcjYyNmNjOWgwIn0.JwQHIGfBviLpgg4p2YlF_g';
   var map = new mapboxgl.Map({
