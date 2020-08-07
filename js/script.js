@@ -164,12 +164,14 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
               'translate(' + margin.left + ', ' + margin.top + ')');
 
 // name the data
-  var allData = d3.json(allDataUrl);
+  d3.json(allDataUrl).then(function(allData) {
+    svg.selectAll('rect')
+      .data(allData.features)
+      .enter()
+      .append('rect');
+  });
 
-  svg.selectAll('rect')
-    .data(allData.features)
-    .enter()
-    .append('rect');
+
 
 
 // x axis: scale and draw:
