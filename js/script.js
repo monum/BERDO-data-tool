@@ -166,18 +166,18 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
 // name the data
   d3.json(allDataUrl).then(function(allData) {
 
-    allData.features.reduce(function(memo, element, index, array){
-      if (!element.GHGIN_NUM){
+  var dataByType = allData.features.reduce(function(memo, element, index, array){
+      if (!element.properties.GHGIN_NUM){
         return memo;
       }
-      if (memo[element.Property_T]){
-        memo[element.Property_T]=[ ...memo[element.Property_T], element];
+      if (memo[element.properties.Property_T]){
+        memo[element.properties.Property_T]=[ ...memo[element.properties.Property_T], element];
       }
       else {
-        memo[element.Property_T]=[ element];
+        memo[element.properties.Property_T]=[ element];
       }
       return memo;
-    }, {})
+    }, {});
 
     svg.selectAll('rect')
       .data(allData.features)
