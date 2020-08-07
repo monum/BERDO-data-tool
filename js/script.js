@@ -71,7 +71,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
        .domain([min, max])
        .range([0, width]);
        var data = d3.histogram()
-       .bins(x.ticks(10))
+       .thresholds(x.ticks(10))
        (ghgValues);
        var yMax = d3.max(data, function(d){return d.length});
        var yMin = d3.min(data, function(d){return d.length});
