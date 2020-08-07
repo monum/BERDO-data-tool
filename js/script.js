@@ -169,8 +169,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
   svg.selectAll('rect')
     .data(allData.features)
     .enter()
-    .append('rect')
-    .attr();
+    .append('rect');
 
 
 // x axis: scale and draw:
