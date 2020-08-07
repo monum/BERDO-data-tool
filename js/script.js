@@ -1,6 +1,6 @@
 
 // import original geojson dataset
-import alldata from './BERDO_2019_All.geojson';
+var allDataUrl = 'https://github.com/pounlaura/BERDO-data-tool/blob/master/BERDO_2019_All.geojson';
 // set up map
   mapboxgl.accessToken = 'pk.eyJ1IjoiYm9zdG9uYXBjYyIsImEiOiJja2MyYXplbDMwcG0xMnhqcjYyNmNjOWgwIn0.JwQHIGfBviLpgg4p2YlF_g';
   var map = new mapboxgl.Map({
@@ -149,10 +149,10 @@ import alldata from './BERDO_2019_All.geojson';
         reportsContainer.appendChild(report);
       })
 
-//histogram
-    var margin = {top: 10, right: histoAreaPadding, bottom: 30, left: 40},
-      width = histoWidth - margin.left - margin.right,
-      height = histoHeight - margin.top - margin.bottom;
+//histogram margin
+    var margin = {top: 10, right: 10, bottom: 30, left: 40},
+      width = 480 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
     var svg = d3.select('#ghgintensityGraph')
@@ -163,7 +163,17 @@ import alldata from './BERDO_2019_All.geojson';
         .attr('transform',
               'translate(' + margin.left + ', ' + margin.top + ')');
 
-  // var graphData = .ghgintensity
+// name the data
+  var allData = d3.json(allDataUrl);
+  var minVal = Math.min.apply(null,allData);
+
+  svg.selectAll('rect')
+    .data(allData)
+    .enter()
+    .append('rect')
+    .attr()
+
+
 // x axis: scale and draw:
   // var x = d3.scaleLinear()
   //   .domain([0,d3.max()])
