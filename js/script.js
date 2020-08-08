@@ -78,7 +78,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
        var y = d3.scaleLinear()
         .domain([0, yMax])
         .range([height,0]);
-        var xAxis = d3.svg.axis()
+        var xAxis = d3.axisBottom()
         .scale(x)
         .orient("bottom");
 
