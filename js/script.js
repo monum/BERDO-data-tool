@@ -1,4 +1,5 @@
 
+
 // import original geojson dataset
 var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geojson';
 // set up map
@@ -59,11 +60,12 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
 
      for (var propertyType in dataByType) {
        var blankGraphSVG = document.querySelector('.ghgintensityGraph');
-       var populatedGraph = blankGraphSVG.cloneNode(true);
+       var graphContainerElement = blankGraphSVG.cloneNode(true);
 
-       var svg = d3.select(populatedGraph);
+       var graphContainer = d3.select(graphContainerElement);
+       var graphSVG = graphContainer.select('svg');
        var ghgValues = dataByType[propertyType].map(function(feature) {
-         return feature.GHGIN_NUM;
+         return feature.properties.GHGIN_NUM;
        });
        var min = d3.min(ghgValues);
        var max = d3.max(ghgValues);
@@ -81,26 +83,26 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
         var xAxis = d3.axisBottom()
         .scale(x);
 
-        var bar = svg.selectAll(".bar")
+        var bar = graphSVG.selectAll(".bar")
           .data(data)
           .enter().append('g')
           .attr('class', 'bar')
           .attr('transform', function(d){
-            return "translate(" + x(d.x) + "," + y(d.y) + ")";
+            return "translate(" + x(d.x0) + "," + y(d.length) + ")";
           });
 
           bar.append('rect')
           .attr("x", 1)
-          .attr("width", (x(data[0].dx) - x(0)) - 1)
-          .attr("height", function(d) { return height - y(d.y); })
+          .attr("width", function(d) { return x(d.x1) - x(d.x0) - 1; })
+          .attr("height", function(d) { return y(0) - y(d.length); })
           .attr('fill', "blue");
 
-          svg.append("g")
+          graphSVG.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
           .call(xAxis);
 
-       histograms[propertyType] = svg;
+       histograms[propertyType] = graphContainer;
      }
    });
 
@@ -219,6 +221,8 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
           populatedReport.querySelector('.siteeui .value').innerHTML = replaceUndefined(report.properties.Site_EUI_N) + ' kBTU/ft²';
           populatedReport.querySelector('.area .value').innerHTML = replaceUndefined(report.properties.Gross_Sq_F) + ' ft²';
           populatedReport.querySelector('.energystar .value').innerHTML = replaceUndefined(report.properties.EnergyStar);
+          d3.select(populatedReport).select('.ghgintensityGraph').remove();
+          d3.select(populatedReport).node().appendChild(histograms[report.properties.Property_T]._groups[0][0]);
           // populatedReport.querySelector('.area .value').innerHTML = report.properties.yearReno;
           return populatedReport;
         }
