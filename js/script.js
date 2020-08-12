@@ -138,7 +138,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
   },
   {
     id: 'siteeui',
-    steps: ['N/A','0-5', '5-10', '10-20', '20-30', '30+'],
+    steps: ['N/A','0-20', '20-80', '80-120', '120-250', '250+'],
     colors: ['#919191', '#ffffcc', '#7fcdbb', '#41b6c4', '#2c7fb8', '#253494'],
     name: "Site EUI",
   }];
