@@ -159,7 +159,7 @@
 
   .ghgintens {
     border-bottom:2px blue solid;
-    width:200px;
+    width:500px;
     padding-bottom:5px;
     padding-top:5px;
   }
@@ -176,10 +176,9 @@
     color: blue;
   }
 
-  .siteeui {
-    margin-top: 10px;
+  .yearReport {
+      margin-top: 10px;
   }
-
   .siteeui .value {
     font-weight: bold;
   }
