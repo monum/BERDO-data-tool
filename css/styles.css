@@ -157,16 +157,48 @@
     color: gray;
   }
 
+  .ghgintens {
+    border-bottom:2px blue solid;
+    width:200px;
+    padding-bottom:5px;
+    padding-top:5px;
+  }
+
   .ghgintens .value {
     font: 40px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     font-weight: bold;
+    color: red;
+  }
+
+  .targetGHG .value {
+    font: 40px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: blue;
   }
 
   .siteeui {
     margin-top: 10px;
   }
 
+  .siteeui .value {
+    font-weight: bold;
+  }
 
+  .buildingID .value {
+    font-weight: bold;
+  }
+
+  .area .value {
+    font-weight: bold;
+  }
+
+  .energystar .value {
+    font-weight: bold;
+  }
+
+  .yearReno .value {
+    font-weight: bold;
+  }
   /* .ghgintens .label {
 
   } */
