@@ -109,7 +109,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
           .attr('class', 'x label')
           .attr('text-anchor', 'end')
           .attr('x', width)
-          .attr('y',0)
+          .attr('y',height-470)
           .text('kgCO2e/ft²');
 
           graphSVG.append('g')
