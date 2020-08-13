@@ -113,7 +113,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
           .attr('x', width)
           .attr('y',height+35)
           .text('kgCO2e/ft²');
-          
+
           graphSVG.append('g')
           .attr("class", "y axis")
           .attr("transform", "translate(50,0)")
@@ -241,13 +241,13 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
           d3.select(populatedReport).select('.ghgintensityGraph').remove();
           d3.select(populatedReport).node().appendChild(histograms[report.properties.Property_T].node().cloneNode(true));
           var svg = d3.select(populatedReport.querySelector('.ghgintensityGraph svg'));
-          svg.selectAll('.bar rect')
+          var matchingBar = svg.selectAll('.bar rect')
             .nodes()
             .find(function(rect) {
               return Number(rect.getAttribute('data-min')) <= Number(report.properties.GHGIN_NUM) &&
                 Number(rect.getAttribute('data-max')) >= Number(report.properties.GHGIN_NUM)
-            })
-            .setAttribute('fill', 'yellow');
+            });
+            if (matchingBar) {matchingBar.setAttribute('fill', 'yellow');}
           // populatedReport.querySelector('.area .value').innerHTML = report.properties.yearReno;
           return populatedReport;
         }
