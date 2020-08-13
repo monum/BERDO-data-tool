@@ -72,7 +72,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
        var max = d3.max(ghgValues);
        var x = d3.scaleLinear()
        .domain([min, max])
-       .range([0, width]);
+       .range([50, width]);
        var data = d3.histogram()
        .thresholds(x.ticks(10))
        (ghgValues);
@@ -91,7 +91,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
           .enter().append('g')
           .attr('class', 'bar')
           .attr('transform', function(d){
-            return "translate(" 50 + x(d.x0) + "," + y(d.length) + ")";
+            return "translate(" + x(d.x0) + "," + y(d.length) + ")";
           });
 
           bar.append('rect')
@@ -102,7 +102,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
 
           graphSVG.append("g")
           .attr("class", "x axis")
-          .attr("transform", "translate(50," + height + ")")
+          .attr("transform", "translate(0," + height + ")")
           .call(xAxis);
 
           graphSVG.append('g')
