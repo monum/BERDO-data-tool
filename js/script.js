@@ -239,7 +239,8 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
           populatedReport.querySelector('.area .value').innerHTML = replaceUndefined(report.properties.Gross_Sq_F) + ' ft²';
           populatedReport.querySelector('.energystar .value').innerHTML = replaceUndefined(report.properties.EnergyStar);
           d3.select(populatedReport).select('.ghgintensityGraph').remove();
-          d3.select(populatedReport).node().appendChild(histograms[report.properties.Property_T].node().cloneNode(true));
+          if (report.properties.Property_T) {d3.select(populatedReport).node().appendChild(histograms[report.properties.Property_T].node().cloneNode(true));
+          }
           var svg = d3.select(populatedReport.querySelector('.ghgintensityGraph svg'));
           var matchingBar = svg.selectAll('.bar rect')
             .nodes()
