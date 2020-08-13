@@ -106,7 +106,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
           .call(xAxis);
 
           graphSVG.append('text')
-          .attr('class', 'x label')
+          .attr('class', 'xLabel')
           .attr('text-anchor', 'end')
           .attr('x', width)
           .attr('y',height+40)
