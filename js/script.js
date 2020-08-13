@@ -104,6 +104,10 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
           .call(xAxis);
+
+          graphSVG.append('g')
+          .attr("class", "y axis")
+          .attr("transform", "translate(50,0)")
           .call(yAxis);
 
        histograms[propertyType] = graphContainer;
