@@ -98,6 +98,8 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
           .attr("x", 1)
           .attr("width", function(d) { return x(d.x1) - x(d.x0) - 1; })
           .attr("height", function(d) { return y(0) - y(d.length); })
+          .attr('data-min', function(d) { return d.x0 })
+          .attr('data-max', function(d) { return d.x1 })
           .attr('fill', "blue");
 
           graphSVG.append("g")
@@ -109,9 +111,9 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
           .attr('class', 'xLabel')
           .attr('text-anchor', 'end')
           .attr('x', width)
-          .attr('y',height+40)
+          .attr('y',height+35)
           .text('kgCO2e/ft²');
-
+          
           graphSVG.append('g')
           .attr("class", "y axis")
           .attr("transform", "translate(50,0)")
@@ -237,7 +239,15 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
           populatedReport.querySelector('.area .value').innerHTML = replaceUndefined(report.properties.Gross_Sq_F) + ' ft²';
           populatedReport.querySelector('.energystar .value').innerHTML = replaceUndefined(report.properties.EnergyStar);
           d3.select(populatedReport).select('.ghgintensityGraph').remove();
-          d3.select(populatedReport).node().appendChild(histograms[report.properties.Property_T]._groups[0][0]);
+          d3.select(populatedReport).node().appendChild(histograms[report.properties.Property_T].node().cloneNode(true));
+          var svg = d3.select(populatedReport.querySelector('.ghgintensityGraph svg'));
+          svg.selectAll('.bar rect')
+            .nodes()
+            .find(function(rect) {
+              return Number(rect.getAttribute('data-min')) <= Number(report.properties.GHGIN_NUM) &&
+                Number(rect.getAttribute('data-max')) >= Number(report.properties.GHGIN_NUM)
+            })
+            .setAttribute('fill', 'yellow');
           // populatedReport.querySelector('.area .value').innerHTML = report.properties.yearReno;
           return populatedReport;
         }
