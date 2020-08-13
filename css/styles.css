@@ -173,12 +173,16 @@
   .targetGHG .value {
     font: 40px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     font-weight: bold;
-    color: blue;
   }
 
   .yearReport {
       margin-top: 10px;
   }
+
+  .yearReport .value {
+    font-weight: bold;
+  }
+
   .siteeui .value {
     font-weight: bold;
   }

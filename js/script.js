@@ -44,6 +44,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
  // name the data
    d3.json(allDataUrl).then(function(allData) {
 
+// organize data by property type
      var dataByType = allData.features.reduce(function(memo, element, index, array){
        if (!element.properties.GHGIN_NUM){
          return memo;
@@ -82,6 +83,8 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
         .range([height,0]);
         var xAxis = d3.axisBottom()
         .scale(x);
+        var yAxis = d3.axisLeft()
+        .scale(y);
 
         var bar = graphSVG.selectAll(".bar")
           .data(data)
@@ -101,6 +104,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
           .call(xAxis);
+          .call(yAxis);
 
        histograms[propertyType] = graphContainer;
      }
