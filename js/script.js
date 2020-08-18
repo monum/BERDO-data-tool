@@ -1,7 +1,8 @@
 
 
-// import original geojson dataset
+// import original geojson dataset for the info panel
 var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geojson';
+
 // set up map
   mapboxgl.accessToken = 'pk.eyJ1IjoiYm9zdG9uYXBjYyIsImEiOiJja2MyYXplbDMwcG0xMnhqcjYyNmNjOWgwIn0.JwQHIGfBviLpgg4p2YlF_g';
   var map = new mapboxgl.Map({
@@ -11,7 +12,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
    zoom: 11.5, // Starting zoom level
  });
 
-//search by address function
+//set up the geocoder (search by address function)
  var geocoder = new MapboxGeocoder({ // Initialize the geocoder
    accessToken: mapboxgl.accessToken, // Set the access token
    placeholder: 'Search by address',
@@ -26,6 +27,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
  // Add the geocoder to the map
  map.addControl(geocoder);
 
+// set ghg intensity histograms
     var histograms = {};
  //histogram margin
     var margin = {top: 10, right: 10, bottom: 30, left: 40},
@@ -41,10 +43,10 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
          .attr('transform',
                'translate(' + margin.left + ', ' + margin.top + ')');
 
- // name the data
+ // name the data imported at the top
    d3.json(allDataUrl).then(function(allData) {
 
-// organize data by property type
+// organize data by property type and create objects based on property type
      var dataByType = allData.features.reduce(function(memo, element, index, array){
        if (!element.properties.GHGIN_NUM){
          return memo;
@@ -58,7 +60,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
        return memo;
      }, {});
 
-
+// create the histograms
      for (var propertyType in dataByType) {
        var blankGraphSVG = document.querySelector('.ghgintensityGraph');
        var graphContainerElement = blankGraphSVG.cloneNode(true);
@@ -208,7 +210,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
     var infoPanelCloseButton = document.querySelector('#perbuildinginfo .close');
     infoPanelCloseButton.onclick = closeInfoPanel;
 
-// info panel
+// create info panel
     map.on('click', 'alldata', function(e) {
 
       var coordinates = e.features[0].geometry.coordinates.slice();
@@ -226,18 +228,21 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
       function replaceUndefined(originalValue) {
         return originalValue || 'N/A';
       }
-// loop through all reports
+// loop through all reports to show values based on clicked building
       var reports = e.features.map(
         function(report) {
           var populatedReport = infoContainer.cloneNode(true);
           // query values for each BID based on column names
           populatedReport.querySelector('.buildingID .value').innerHTML = replaceUndefined(report.properties.BID);
-          populatedReport.querySelector('.address .value').innerHTML = replaceUndefined(report.properties.Address);
+          populatedReport.querySelector('.address .value').innerHTML = replaceUndefined(report.properties.PropertyNa);
           populatedReport.querySelector('.type .value').innerHTML = replaceUndefined(report.properties.Property_T);
           populatedReport.querySelector('.ghgintens .value').innerHTML = replaceUndefined(report.properties.GHGIN_NUM);
           populatedReport.querySelector('.siteeui .value').innerHTML = replaceUndefined(report.properties.Site_EUI_N) + ' kBTU/ft²';
           populatedReport.querySelector('.area .value').innerHTML = replaceUndefined(report.properties.Gross_Sq_F) + ' ft²';
           populatedReport.querySelector('.energystar .value').innerHTML = replaceUndefined(report.properties.EnergyStar);
+          // populatedReport.querySelector('.area .value').innerHTML = report.properties.yearReno;
+
+          // call histogram
           d3.select(populatedReport).select('.ghgintensityGraph').remove();
           if (report.properties.Property_T) {d3.select(populatedReport).node().appendChild(histograms[report.properties.Property_T].node().cloneNode(true));
           }
@@ -249,7 +254,7 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
                 Number(rect.getAttribute('data-max')) >= Number(report.properties.GHGIN_NUM)
             });
             if (matchingBar) {matchingBar.setAttribute('fill', 'yellow');}
-          // populatedReport.querySelector('.area .value').innerHTML = report.properties.yearReno;
+
           return populatedReport;
         }
       );
@@ -258,15 +263,6 @@ var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geo
         reportsContainer.appendChild(report);
       })
 
-
-
-
-
-
-// x axis: scale and draw:
-  // var x = d3.scaleLinear()
-  //   .domain([0,d3.max()])
-  //   });
 
 // change mouse to pointer when hovering clickable object
     map.on('mouseenter', 'alldata', function() {
