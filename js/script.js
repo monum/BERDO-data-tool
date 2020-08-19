@@ -4,7 +4,7 @@
 var allDataUrl = 'https://monum.github.io/BERDO-data-tool/BERDO_2019_All.geojson';
 
 // set up map
-  mapboxgl.accessToken = 'pk.eyJ1IjoiYm9zdG9uYXBjYyIsImEiOiJja2MyYXplbDMwcG0xMnhqcjYyNmNjOWgwIn0.JwQHIGfBviLpgg4p2YlF_g';
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYm9zdG9uYXBjYyIsImEiOiJja2NwN2UyYWkwczJlMnptb2NrbTExODJ1In0.5ZuX2BoVUv1e8745V7Dy3A';
   var map = new mapboxgl.Map({
    container: 'map', // Container ID
    style: 'mapbox://styles/bostonapcc/ckcp7m95e071e1ilhoks0gz09', // Map style to use
