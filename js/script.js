@@ -1,7 +1,7 @@
 
 
 // import original geojson dataset for the info panel
-var allDataUrl = 'https://pounlaura.github.io/BERDO-data-tool/BERDO_2019_All.geojson';
+var allDataUrl = 'https://monum.github.io/BERDO-data-tool/BERDO_2019_All.geojson';
 
 // set up map
   mapboxgl.accessToken = 'pk.eyJ1IjoiYm9zdG9uYXBjYyIsImEiOiJja2MyYXplbDMwcG0xMnhqcjYyNmNjOWgwIn0.JwQHIGfBviLpgg4p2YlF_g';
